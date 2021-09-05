@@ -44,16 +44,10 @@ const ButtonGroups = React.lazy(() =>
 const Buttons = React.lazy(() => import("./views/buttons/buttons/Buttons"));
 const Charts = React.lazy(() => import("./views/charts/Charts"));
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
-const CoreUIIcons = React.lazy(() =>
-  import("./views/icons/coreui-icons/CoreUIIcons")
-);
-const Flags = React.lazy(() => import("./views/icons/flags/Flags"));
-const Brands = React.lazy(() => import("./views/icons/brands/Brands"));
 const Alerts = React.lazy(() => import("./views/notifications/alerts/Alerts"));
 const Badges = React.lazy(() => import("./views/notifications/badges/Badges"));
 const Modals = React.lazy(() => import("./views/notifications/modals/Modals"));
-const Colors = React.lazy(() => import("./views/theme/colors/Colors"));
-const Users = React.lazy(() => import("./views/theme/typography/Users"));
+const Users = React.lazy(() => import('./views/users/Users'));
 const Widgets = React.lazy(() => import("./views/widgets/Widgets"));
 // const Users = React.lazy(() => import('./views/users/Users'));
 // const User = React.lazy(() => import('./views/users/User'));
@@ -61,11 +55,9 @@ const Widgets = React.lazy(() => import("./views/widgets/Widgets"));
 const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
-  { path: "/theme", name: "Theme", component: Colors, exact: true },
-  { path: "/theme/colors", name: "Colors", component: Colors },
   { path: "/users", name: "Users", component: Users },
   { path: "/base", name: "Base", component: Cards, exact: true },
-  { path: "/base/breadcrumbs", name: "Breadcrumbs", component: Breadcrumbs },
+  { path: "/transactions", name: "Breadcrumbs", component: Breadcrumbs },
   { path: "/base/cards", name: "Cards", component: Cards },
   { path: "/base/carousels", name: "Carousel", component: Carousels },
   { path: "/base/collapses", name: "Collapse", component: Collapses },
@@ -99,10 +91,6 @@ const routes = [
     component: BrandButtons,
   },
   { path: "/charts", name: "Charts", component: Charts },
-  { path: "/icons", exact: true, name: "Icons", component: CoreUIIcons },
-  { path: "/icons/coreui-icons", name: "CoreUI Icons", component: CoreUIIcons },
-  { path: "/icons/flags", name: "Flags", component: Flags },
-  { path: "/icons/brands", name: "Brands", component: Brands },
   {
     path: "/notifications",
     name: "Notifications",

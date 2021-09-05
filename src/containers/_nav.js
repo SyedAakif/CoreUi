@@ -27,7 +27,7 @@ const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'Transactions',
-    to: '/base/breadcrumbs',
+    to: '/transactions',
     icon: 'cil-puzzle',
   },
   // {
