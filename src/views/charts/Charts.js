@@ -57,10 +57,10 @@ const Charts = () => {
                   '#00D8FF',
                   '#DD1B16'
                 ],
-                data: [40, 20, 80, 10]
+                data: [40, 20, 80, 10, 5, 15]
               }
             ]}
-            labels={['VueJs', 'EmberJs', 'ReactJs', 'AngularJs']}
+            labels={['VueJs', 'EmberJs', 'ReactJs', 'AngularJs', 'ExpressJs', 'Java']}
             options={{
               tooltips: {
                 enabled: true
