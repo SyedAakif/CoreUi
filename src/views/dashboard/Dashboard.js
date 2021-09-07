@@ -43,9 +43,8 @@ function getDashboardDetails() {
     console.log(items);
   });
 }
-  
-  
-  AuthenticationRedirection();
+
+AuthenticationRedirection();
 function AuthenticationRedirection(){
 
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -56,7 +55,6 @@ function AuthenticationRedirection(){
   window.location = "https://auth.test.altseasons.com/auth/realms/altseasons/protocol/openid-connect/auth?client_id=account&response_type=code&scope=openid&redirect_uri="+base_url+"/dashboard";
 }
 }
-  
 
   useEffect(() => {
     getData();
@@ -88,15 +86,15 @@ function AuthenticationRedirection(){
                 <td>
                       <strong>{item.telegramUser.firstName} {item.telegramUser.lastName} </strong>
                 </td>
-                <td className="text-center">01/01/2016</td>
+                <td className="text-center"> {item.telegramUser.createdAt } </td>
                 <td>
                   <div className="clearfix ">
                     <div className="text-center">
-                      <strong>50</strong>
+                      <strong> {item.followers.length }    </strong>
                     </div>
                   </div>
                 </td>
-                <td className="text-center">100,000</td>
+                <td className="text-center">{item.totalTradedVolume }</td>
                 <td>
                   <div className="small text-muted">2500</div>
                 </td>
