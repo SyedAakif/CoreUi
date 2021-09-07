@@ -43,6 +43,20 @@ function getDashboardDetails() {
     console.log(items);
   });
 }
+  
+  
+  AuthenticationRedirection();
+function AuthenticationRedirection(){
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+
+  var base_url = window.location.origin;
+  if (!localStorage.getItem(API.getTokenKey()) || !params['code']) {
+  window.location = "https://auth.test.altseasons.com/auth/realms/altseasons/protocol/openid-connect/auth?client_id=account&response_type=code&scope=openid&redirect_uri="+base_url+"/dashboard";
+}
+}
+  
 
   useEffect(() => {
     getData();
