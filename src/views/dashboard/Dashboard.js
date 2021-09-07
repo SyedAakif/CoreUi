@@ -6,8 +6,15 @@ import CIcon from "@coreui/icons-react";
 import MainChartExample from "../charts/MainChartExample.js";
 import DashboardApi from "./DashboardApi.js";
 import TheSidebar from "src/containers/TheSidebar.js";
-import API from '../../BaseApi';
+import API from "../../BaseApi";
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
+
+
+
+function Dashboard() {
+
+  const [items, setItems] = useState([]);
+
 
 function getData() {
   debugger;
@@ -16,12 +23,12 @@ function getData() {
     const params = Object.fromEntries(urlSearchParams.entries());
     let body = {
       code: params["code"],
-      redirectUri: window.location.href.split('?')[0],
+      redirectUri: window.location.href.split("?")[0],
     };
     DashboardApi.getAuthToken(body).then((res) => {
       debugger;
       console.log(res);
-      localStorage.setItem(API.getTokenKey(), res.data.access_token)
+      localStorage.setItem(API.getTokenKey(), res.data.access_token);
       console.log("resssa");
       getDashboardDetails();
     });
@@ -29,22 +36,13 @@ function getData() {
     getDashboardDetails();
   }
 }
-let items = [];
 function getDashboardDetails() {
-  DashboardApi.getDashBoarData().then((res) => {
-    console.log("dashboard Data");
-    console.log(res.data);
-    items = res.data;
+  DashboardApi.getDashBoarData().then(res => {
+    debugger;
+    setItems(res.data);
     console.log(items);
   });
 }
-
-const Dashboard = () => {
-  // here you set a state to tell the component it need to wait
-  //  until the result is fetched from the api
-  const [loadingData, setLoadingData] = useState(true);
-
-  const [data, setData] = useState([]);
 
   useEffect(() => {
     getData();
@@ -69,10 +67,12 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="text-center">1</td>
+              {items.map(item => {
+                return (
+                  <tr>
+                    <td className="text-center">{ item.id }</td>
                 <td>
-                  <strong>Yiorgos Avraamu</strong>
+                      <strong>{item.telegramUser.firstName} {item.telegramUser.lastName} </strong>
                 </td>
                 <td className="text-center">01/01/2016</td>
                 <td>
@@ -89,6 +89,11 @@ const Dashboard = () => {
                 <td className="text-center">50%</td>
                 <td className="text-center"></td>
               </tr>
+              )
+              })
+
+              }
+              
               <tr>
                 <td className="text-center">2</td>
                 <td>
@@ -187,32 +192,42 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <strong className="float-left">Mohammad</strong>
-                    </td>
-                    <td>4,000</td>
-                    <td className="text-center">Yousef</td>
-                    <td className="text-center">USDT</td>
-                    <td>
-                      <div className="clearfix">
-                        <div className="float-right">Yes/No</div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong className="float-left">Abdulrehman</strong>
-                    </td>
-                    <td>10,000</td>
-                    <td className="text-center">Nowfel</td>
-                    <td className="text-center">BTC</td>
-                    <td>
-                      <div className="clearfix">
-                        <div className="float-right">Yes/No</div>
-                      </div>
-                    </td>
-                  </tr>
+                  {
+                    
+                    items.map((item,i) => {
+                        return (
+                      <tr>
+                      <td>
+                              <strong className="float-left">{item.id}</strong>
+                      </td>
+                            <td>4,000</td>
+                           
+                              <td className="text-center">{item.id}</td>
+                            <td className="text-center"></td>
+                      <td>
+                        <div className="clearfix">
+                          <div className="float-right">Yes/No</div>
+                        </div>
+                      </td>
+                          </tr>
+                        )
+                      })
+                  
+                  }
+                   <tr>
+                      <td>
+                        <strong className="float-left">5</strong>
+                      </td>
+                      <td>4,000</td>
+                      <td className="text-center">Yousef</td>
+                      <td className="text-center">USDT</td>
+                      <td>
+                        <div className="clearfix">
+                          <div className="float-right">Yes/No</div>
+                        </div>
+                      </td>
+                    </tr>
+                 
                 </tbody>
               </table>
             </CCard>
