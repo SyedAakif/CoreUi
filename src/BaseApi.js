@@ -4,7 +4,9 @@ const NO_CONTENT = 204;
 const UNAUTHORIZED = 401;
 
 const _pendingRequests = {};
-const  BaseUrl =  'https://dashboard.test.altseasons.com/admin/';
+const BaseUrl = 'https://dashboard.test.altseasons.com/';
+
+const TokenKey = 'token'
 
 // const abortPendingRequests = (key) => {
 //   if (_pendingRequests[key]) {
@@ -51,22 +53,23 @@ const  BaseUrl =  'https://dashboard.test.altseasons.com/admin/';
 // };
 
 const API = {
-    //   getHeaders(accessToken) {
-//     return {
-//       Accept: accept,
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${accessToken}`,
-//     };
-//   },
+      getHeaders() {
+    return {
+         Authorization: `Bearer ${localStorage.getItem(TokenKey)}`};
+  },
 
     makeGetRequest(url) {
-        return axios.get(BaseUrl+url);
+        return axios.get(BaseUrl+url, {headers: this.getHeaders()} );
     },
 
     makePostRequest(url, body) {
         debugger;
-        return axios.post(BaseUrl + url, body);
-  },
+        return axios.post(BaseUrl + url, body,{headers:this.getHeaders()});
+    },
+    getTokenKey() {
+        debugger;
+        return TokenKey;
+    }
     
 };
 

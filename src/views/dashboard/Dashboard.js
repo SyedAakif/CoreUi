@@ -1,33 +1,41 @@
 import React, { lazy, useMemo, useState, useEffect } from "react";
-import {
-  CCard,
-  CCardHeader,
-  CCol,
-  CRow,
-  CCallout,
-} from "@coreui/react";
+import { CCard, CCardHeader, CCol, CRow, CCallout } from "@coreui/react";
 import axios from "axios";
 import CIcon from "@coreui/icons-react";
 
 import MainChartExample from "../charts/MainChartExample.js";
 import DashboardApi from "./DashboardApi.js";
 import TheSidebar from "src/containers/TheSidebar.js";
+import API from '../../BaseApi';
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 
 function getData() {
-  let body = {
-    code: "b0d733c3-a316-4930-a5a5-3bec17b43fcb.cb8a144d-c92a-48bf-9752-76a82aa9f815.a4667de5-99dd-4f6c-9c16-9a10f2c1929b",
-    redirectUri: "http://localhost:3000/admin",
-  };
-  DashboardApi.getAuthToken(body).then((res) => {
-    console.log(res);
+  debugger;
+  if (!localStorage.getItem(API.getTokenKey())) {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    let body = {
+      code: params["code"],
+      redirectUri: window.location.href.split('?')[0],
+    };
+    DashboardApi.getAuthToken(body).then((res) => {
+      debugger;
+      console.log(res);
+      localStorage.setItem(API.getTokenKey(), res.data.access_token)
+      console.log("resssa");
+      getDashboardDetails();
+    });
+  } else {
     getDashboardDetails();
-  });
+  }
 }
-
+let items = [];
 function getDashboardDetails() {
   DashboardApi.getDashBoarData().then((res) => {
-    console.log("res");
+    console.log("dashboard Data");
+    console.log(res.data);
+    items = res.data;
+    console.log(items);
   });
 }
 
@@ -40,15 +48,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     getData();
-
-    if (loadingData) {
-      // if the result is not ready so you make the axios call
-      getData();
-    }
   }, []);
 
   return (
-    
     <CRow>
       <WidgetsDropdown />
       <CCol>

@@ -3,8 +3,8 @@ import API from '../../BaseApi';
 export default {
 
   getDashBoarData() {
-    const url = `analyst`;
-    API.makeGetRequest(url);
+    const url = `admin/analyst`;
+    return API.makeGetRequest(url);
     },
     getAuthToken(body) {
         const url = 'auth/token'
