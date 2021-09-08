@@ -62,14 +62,17 @@ const Users = () => {
                     </td>
                     <td className="text-center">{user.winrate * 100}%</td>
 
-                    {user.follows.map((fol) => {
+                    {user.follows.length >0
+                    ?user.follows.map((fol) => {
                       return (
                         <td key={user.id}>
                           {fol.analyst.telegramUser.firstName}{" "}
                           {fol.analyst.telegramUser.lastName}
                         </td>
                       );
-                    })}
+                    })
+                    :<td></td>
+                  }
                     <td></td>
                     <td>Pending</td>
 
