@@ -1,11 +1,7 @@
-import React, { lazy, useMemo, useState, useEffect } from "react";
-import { CCard, CCardHeader, CCol, CRow, CCallout } from "@coreui/react";
-import axios from "axios";
-import CIcon from "@coreui/icons-react";
+import React, { lazy, useState, useEffect } from "react";
+import { CCard, CCol, CRow } from "@coreui/react";
 
-import MainChartExample from "../charts/MainChartExample.js";
 import DashboardApi from "./DashboardApi.js";
-import TheSidebar from "src/containers/TheSidebar.js";
 import API from "../../BaseApi";
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
@@ -60,7 +56,7 @@ function Dashboard() {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   return (
     <CRow>
@@ -81,7 +77,7 @@ function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => {
+              {items.forEach((item) => {
                 return (
                   <tr key= {item.id}>
                     <td className="text-center">{item.id}</td>

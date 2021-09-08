@@ -1,9 +1,11 @@
 import API from '../../BaseApi';
 
-export default {
+const UsersApi = {
 
   getUsersData() {
     const url = `admin/users`;
     return API.makeGetRequest(url);
     } 
 };
+
+export default UsersApi;

@@ -1,6 +1,6 @@
 import API from '../../BaseApi';
 
-export default {
+const DashboardApi = {
 
   getDashBoarData() {
     const url = `admin/analyst`;
@@ -12,3 +12,5 @@ export default {
        return API.makePostRequest(url, body);
     }
 };
+
+export default DashboardApi;

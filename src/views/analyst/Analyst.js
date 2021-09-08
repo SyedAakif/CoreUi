@@ -1,66 +1,21 @@
-import React, { lazy, useMemo, useState, useEffect } from "react";
-import { CCard, CCardHeader, CCol, CRow, CCallout } from "@coreui/react";
-import axios from "axios";
-import CIcon from "@coreui/icons-react";
-
-import MainChartExample from "../charts/MainChartExample.js";
-import DashboardApi from "./DashboardApi.js";
-import TheSidebar from "src/containers/TheSidebar.js";
-import API from "../../BaseApi";
-
-const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
+import React, { useState, useEffect } from "react";
+import { CCard, CCardHeader, CCol, CRow} from "@coreui/react";
+import AnalystApi from "./AnalystApi.js";
 
 function Analyst() {
   const [items, setItems] = useState([]);
 
-  function getData() {
-    debugger;
-    if (!localStorage.getItem(API.getTokenKey())) {
-      const urlSearchParams = new URLSearchParams(window.location.search);
-      const params = Object.fromEntries(urlSearchParams.entries());
-      let body = {
-        code: params["code"],
-        redirectUri: window.location.href.split("?")[0],
-      };
-      DashboardApi.getAuthToken(body)
-        .then((res) => {
-          debugger;
-          console.log(res);
-          localStorage.setItem(API.getTokenKey(), res.data.access_token);
-          console.log("resssa");
-          getDashboardDetails();
-        })
-        .catch((err) => {
-          if (!localStorage.getItem(API.getTokenKey()) || !params["code"]) {
-            var base_url = window.location.origin;
-
-            window.location =
-              "https://auth.test.altseasons.com/auth/realms/altseasons/protocol/openid-connect/auth?client_id=account&response_type=code&scope=openid&redirect_uri=" +
-              base_url +
-              "/dashboard";
-          }
-        });
-    } else {
-      getDashboardDetails();
-    }
-  }
   function getDashboardDetails() {
-    DashboardApi.getDashBoarData().then((res) => {
+    AnalystApi.getDashBoarData().then((res) => {
       debugger;
       setItems(res.data);
       console.log(items);
     });
   }
 
-  AuthenticationRedirection();
-  function AuthenticationRedirection() {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-  }
-
   useEffect(() => {
-    getData();
-  }, []);
+    getDashboardDetails();
+  },);
 
   return (
     <CRow>
@@ -79,7 +34,7 @@ function Analyst() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => {
+              {items.forEach((item) => {
                 return (
                   <tr key= {item.id}>
                     
