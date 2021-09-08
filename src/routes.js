@@ -5,8 +5,8 @@ const Toaster = React.lazy(() =>
 );
 const Tables = React.lazy(() => import("./views/base/tables/Tables"));
 
-const Breadcrumbs = React.lazy(() =>
-  import("./views/base/breadcrumbs/Breadcrumbs")
+const Transactions = React.lazy(() =>
+  import("./views/transactions/Tranasctions")
 );
 const Cards = React.lazy(() => import("./views/base/cards/Cards"));
 const Carousels = React.lazy(() => import("./views/base/carousels/Carousels"));
@@ -60,7 +60,7 @@ const routes = [
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/users", name: "Users", component: Users },
   { path: "/base", name: "Base", component: Cards, exact: true },
-  { path: "/transactions", name: "Breadcrumbs", component: Breadcrumbs },
+  { path: "/transactions", name: "Transactions", component: Transactions },
   { path: "/base/cards", name: "Cards", component: Cards },
   { path: "/base/carousels", name: "Carousel", component: Carousels },
   { path: "/base/collapses", name: "Collapse", component: Collapses },

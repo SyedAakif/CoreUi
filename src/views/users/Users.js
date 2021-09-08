@@ -1,9 +1,6 @@
 import React, { lazy, useMemo, useState, useEffect } from "react";
-import { CCard, CCardHeader, CCardBody, CCol, CRow } from "@coreui/react";
-import axios from "axios";
-import { CChartDoughnut } from "@coreui/react-chartjs";
+import { CCard } from "@coreui/react";
 import UsersApi from "./UsersApi.js";
-import API from "../../BaseApi";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
