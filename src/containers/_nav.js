@@ -26,6 +26,12 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'New Analyst',
+    to: '/analyst',
+    icon: 'cil-User',
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Transactions',
     to: '/transactions',
     icon: 'cil-puzzle',

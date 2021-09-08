@@ -10,7 +10,7 @@ import API from "../../BaseApi";
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 
-function Dashboard() {
+function Analyst() {
   const [items, setItems] = useState([]);
 
   function getData() {
@@ -64,53 +64,38 @@ function Dashboard() {
 
   return (
     <CRow>
-      <WidgetsDropdown />
+ 
       <CCol>
         <CCard>
+        <CCardHeader>New Analyst</CCardHeader>
           <table className="table table-hover table-outline mb-0 d-none d-sm-table">
             <thead className="thead-light">
               <tr>
-                <th className="text-center">id</th>
+                
                 <th>Analyst</th>
-                <th>Register Date</th>
-                <th className="text-center">Number of Copies</th>
-                <th>Total Copiers Balance</th>
-                <th>Profits</th>
-                <th>Win Rate %</th>
                 <th>Telegram</th>
+                <th >Pair</th>
+                <th>Approval</th>
               </tr>
             </thead>
             <tbody>
               {items.map((item) => {
                 return (
                   <tr key= {item.id}>
-                    <td className="text-center">{item.id}</td>
+                    
                     <td>
                       <strong>
                         {item.telegramUser.firstName}{" "}
                         {item.telegramUser.lastName}{" "}
                       </strong>
                     </td>
-                    <td className="text-center">
-                      {" "}
-                      {item.telegramUser.createdAt}{" "}
-                    </td>
+                    <td >
+                       
+                    </td> 
+                     
+                    <td >{item.telegramUser.base[0].coin} </td>
                     <td>
-                      <div className="clearfix ">
-                        <div className="text-center">
-                          <strong> {item.followers.length} </strong>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="text-center">{item.totalTradedVolume}</td>
-                    <td>
-                      <div className="small text-muted">
-                        {item.openTradingVolume}
-                      </div>
-                    </td>
-                    <td className="text-center">{item.winrate * 100}%</td>
-                    <td className="text-center">
-                      {item.telegramUser.telegramId}
+                      yes/no
                     </td>
                   </tr>
                 );
@@ -126,4 +111,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Analyst;

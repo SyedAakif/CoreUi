@@ -1,8 +1,23 @@
-import React from "react";
+import React, { lazy, useMemo, useState, useEffect } from "react";
 import { CCard, CCardHeader, CCardBody, CCol, CRow } from "@coreui/react";
+import axios from "axios";
 import { CChartDoughnut } from "@coreui/react-chartjs";
+import UsersApi from "./UsersApi.js";
+import API from "../../BaseApi";
 
 const Users = () => {
+  const [users, setUsers] = useState([]);
+
+  function getUsersDetails() {
+    UsersApi.getUsersData().then((res) => {
+      setUsers(res.data);
+    });
+  }
+
+  useEffect(() => {
+    getUsersDetails();
+  }, []);
+
   return (
     <>
       <CCard>
@@ -23,52 +38,54 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="text-center">1</td>
-              <td>
-                <strong className="float-right">Yiorgos Avraamu</strong>
-              </td>
-              <td className="text-center">01/01/2016</td>
-              <td>
-                <div className="clearfix ">
-                  <div className="text-center">4000</div>
-                </div>
-              </td>
-              <td className="text-center">4500</td>
-              <td>
-                <div className="small text-muted">500</div>
-              </td>
-              <td className="text-center">20%</td>
-              <td className="text-center"> Yousef</td>
-              <td className="text-center"> Pending</td>
-              <td className="text-center"> Mohammad</td>
-              <td className="text-center"> Delete/Stop</td>
-            </tr>
-            <tr>
-              <td className="text-center">1</td>
-              <td>
-                <strong>Yousef</strong>
-              </td>
-              <td className="text-center">01/01/2016</td>
-              <td>
-                <div className="clearfix ">
-                  <div className="text-center">3000</div>
-                </div>
-              </td>
-              <td className="text-center">3200</td>
-              <td>
-                <div className="small text-muted">200</div>
-              </td>
-              <td className="text-center">10%</td>
-              <td className="text-center"> Khaled</td>
-              <td className="text-center"> Cancelled</td>
-              <td className="text-center"> Yousef</td>
-              <td className="text-center"> Delete/Stop</td>
-            </tr>
+            {users.map((user) => {
+              if (user != null) {
+                return (
+                  <tr key={user.id}>
+                    <td className="text-center">{user.id}</td>
+                    <td>
+                      <strong>
+                        {user.telegram.firstName} {user.telegram.lastName}{" "}
+                      </strong>
+                    </td>
+                    <td className="text-center"> {user.telegram.createdAt} </td>
+                    <td>
+                      <div className="clearfix ">
+                        <div className="text-center">
+                          <strong> {user.openTradingVolume.length} </strong>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="text-center">{user.totalTradedVolume}</td>
+                    <td>
+                      <div className="text-center">{user.totalProfits}</div>
+                    </td>
+                    <td className="text-center">{user.winrate * 100}%</td>
+
+                    {user.follows.map((fol) => {
+                      return (
+                        <td key={user.id}>
+                          {fol.analyst.telegramUser.firstName}{" "}
+                          {fol.analyst.telegramUser.lastName}
+                        </td>
+                      );
+                    })}
+                    <td></td>
+                    <td>Pending</td>
+
+                    <td className="text-center">{user.telegram.telegramId}</td>
+                    <td className="text-center">
+                      <button>Delete</button>/{" "}
+                      <button disabled="disabled">Stop</button>
+                    </td>
+                  </tr>
+                );
+              }
+            })}
           </tbody>
         </table>
       </CCard>
-      <CRow>
+      {/* <CRow>
         <CCol xs="12" md="6" xl="4">
           <CCard>
             <CCardHeader>
@@ -88,7 +105,7 @@ const Users = () => {
           <CCard>
             <CCardHeader>Doughnut Chart</CCardHeader>
             <CCardBody>
-              <CChartDoughnut 
+              <CChartDoughnut
                 datasets={[
                   {
                     backgroundColor: [
@@ -117,7 +134,7 @@ const Users = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow>
+      </CRow> */}
       {/* <CCard>
         <CCardHeader>Description list alignment</CCardHeader>
         <CCardBody>
